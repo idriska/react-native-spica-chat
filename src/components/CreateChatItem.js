@@ -29,9 +29,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconContainer: {
-    width: 55,
+    width: 40,
     height: 50,
-    borderRadius: 55,
     marginLeft: 10,
     marginRight: 10,
     justifyContent: 'center',
@@ -49,5 +48,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     color: Colors.PRIMARY,
+    paddingBottom: 3
   },
 });
