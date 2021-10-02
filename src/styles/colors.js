@@ -2,7 +2,7 @@ export const PRIMARY = '#00afff';
 export const SECONDARY = '#1240AB';
 export const WHITE = '#FFFFFF';
 export const BLACK = '#000000';
-export const HELPER_1 = '#FFD073';
+export const HELPER_1 = '#b1e6ff';
 export const HELPER_2 = '#6C8CD5'
 
 // ACTIONS
