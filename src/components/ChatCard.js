@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {Colors} from '../styles';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ChatCard = ({click, data}) => {
   const setClick = value => {

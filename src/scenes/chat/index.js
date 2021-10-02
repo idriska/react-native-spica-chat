@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Text, View, StatusBar} from 'react-native';
 import {FabIcon} from '../../components';
 import styles from './styles';
 import {Colors} from '../../styles';
 import {ChatCard} from '../../components';
+import {useNavigation} from '@react-navigation/native';
+
 
 const ChatScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={Colors.PRIMARY} />
@@ -18,7 +21,7 @@ const ChatScreen = () => {
         </Text>
       </View>
       <View style={styles.fabIcon}>
-        <FabIcon icon="chatbubble-ellipses-outline" click={() => {}} />
+        <FabIcon icon="chatbubble-ellipses-outline" click={() => {navigation.navigate('CreateChat')}} />
       </View>
     </View>
   );
