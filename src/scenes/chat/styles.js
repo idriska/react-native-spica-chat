@@ -11,6 +11,24 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
   },
+  emptyChat: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20
+  },
+  emptyTitle: {
+      fontSize: 22,
+      fontWeight: '500',
+      color: Colors.PRIMARY,
+  },
+  emptyText: {
+      fontSize: 18,
+      marginTop: 15,
+      lineHeight: 25,
+      textAlign: 'center',
+      color: Colors.GRAY_DARK
+  }
 });
 
 export default styles;
