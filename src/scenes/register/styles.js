@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions, Platform} from 'react-native';
 import {Colors} from '../../styles';
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -7,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   topContainer: {
-    marginTop: 70,
+    paddingTop: 70,
   },
   bottomContainer: {
     paddingHorizontal: 20,
@@ -46,14 +47,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   verificationContainer: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   otpContainer: {
     marginTop: 20,
     width: 300,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
-  otpInput:{
+  otpInput: {
     width: 50,
     borderBottomWidth: 2,
     borderWidth: 2,
@@ -86,15 +87,59 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 50
+    borderRadius: 50,
   },
   sendAgainText: {
-    color: Colors.WHITE
+    color: Colors.WHITE,
   },
   sendAgainIcon: {
     marginLeft: 5,
-    marginRight: -2
+    marginRight: -2,
   },
+  profileContainer: {
+    paddingHorizontal: 20 
+  },
+  profileBackground: {
+    width: viewportWidth,
+    height: 190,
+    backgroundColor: '#e0e0e0',
+    position: 'absolute',
+    zIndex: -1
+  },
+  avatarContainer: {
+    width: 110,
+    height: 110,
+    alignSelf: 'center',
+    marginBottom: 20
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 100,
+  },
+  addAvatarBtn: {
+    backgroundColor: Colors.PRIMARY,
+    width: 35,
+    height: 35,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  profileInput: {
+    borderBottomWidth: 1,
+    borderColor: Colors.GRAY_MEDIUM,
+    padding: 0,
+  },
+  profileInfo: {
+    fontSize: 12,
+    color: Colors.GRAY_DARK,
+    marginTop: 8,
+    marginBottom: 20
+  },
+
   supportLink: {
     color: Colors.PRIMARY,
   },

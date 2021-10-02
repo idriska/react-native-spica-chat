@@ -5,6 +5,7 @@ import SpashScreen from '../scenes/splash';
 import WelcomeScreen from '../scenes/welcome';
 import RegisterScreen from '../scenes/register';
 import HomeScreen from '../scenes/home';
+import TabNavigator from './tab-navigator';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ const RootNavigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Regsiter"
+                initialRouteName="TabNavigator"
                 lazy={false}
                 screenOptions={{
                     headerShown: false
@@ -21,6 +22,7 @@ const RootNavigation = () => {
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="Regsiter" component={RegisterScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="TabNavigator" component={TabNavigator} />
             </Stack.Navigator>
         </NavigationContainer>
     );

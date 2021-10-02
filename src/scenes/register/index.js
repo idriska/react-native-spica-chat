@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+} from 'react-native';
 import styles from './styles';
 import {PrimaryButton} from '../../components';
 import {useNavigation} from '@react-navigation/native';
@@ -9,6 +16,7 @@ import OTPTextInput from 'react-native-otp-textinput';
 import {Colors} from '../../styles';
 
 const RegisterScreen = () => {
+  const navigation = useNavigation();
   const [step, setStep] = useState(1);
   const [otp, setOTP] = useState(false);
   const [title, setTitle] = useState('Telefon Numarası');
@@ -31,6 +39,8 @@ const RegisterScreen = () => {
       setTitle('Profil');
       setInformText('');
       setBtnText('Tamamla');
+    } else if (currentStep == 4) {
+      navigation.navigate('TabNavigator')
     }
   };
   return (
@@ -80,7 +90,35 @@ const RegisterScreen = () => {
             </TouchableOpacity>
           </View>
         ) : (
-          <></>
+          <>
+            <View style={styles.profileBackground}></View>
+            <View style={styles.profileContainer}>
+              <View style={styles.avatarContainer}>
+                <Image
+                  style={styles.avatar}
+                  source={{
+                    uri: 'https://cdn.geekwire.com/wp-content/uploads/2019/01/mackenziebezos.jpg',
+                  }}
+                />
+                <TouchableOpacity style={styles.addAvatarBtn}>
+                  <MaterialIcons
+                    name="photo-camera"
+                    color={'white'}
+                    size={24}
+                  />
+                </TouchableOpacity>
+              </View>
+              <TextInput
+                placeholder="İsim"
+                style={styles.profileInput}></TextInput>
+              <Text style={styles.profileInfo}>
+                BiP profilinizde bu isim görüecektir
+              </Text>
+              <TextInput
+                placeholder="Ne düşünüyorsun?"
+                style={styles.profileInput}></TextInput>
+            </View>
+          </>
         )}
       </View>
       <View style={styles.bottomContainer}>
