@@ -7,10 +7,12 @@ import Contacts from 'react-native-contacts';
 import {useState} from 'react/cjs/react.development';
 import {Colors} from '../../styles';
 import {DataService} from '../../services/data.service';
+import {useNavigation} from '@react-navigation/native';
 
 const CreateChatScreen = () => {
   const dataService = new DataService();
   const [contacts, setContacts] = useState([]);
+  const navigation = useNavigation();
   let allContacts = [];
   let allMsisdns = [];
 
@@ -28,8 +30,8 @@ const CreateChatScreen = () => {
         }
       });
       const usersData = await getUsers();
-      const mergedData = mergeUsersData(usersData)
-      
+      const mergedData = mergeUsersData(usersData);
+
       setContacts(mergedData);
     }
   }, []);
@@ -54,19 +56,26 @@ const CreateChatScreen = () => {
     return msisdn.substr(msisdn.length - 10, 10);
   };
 
-  const mergeUsersData = (usersData) => {
+  const mergeUsersData = usersData => {
     usersData.forEach(user => {
       let contact = allContacts.find(contact => {
         return contact.msisdn == user.msisdn;
       });
       user.name = contact.name;
     });
-    return usersData
-  }
+    return usersData;
+  };
 
   const renderUserList = () => {
     return contacts.map((item, index) => {
-      if (item.name) return <UserListItem key={index} data={item} />;
+      if (item.name)
+        return (
+          <UserListItem
+            key={index}
+            data={item}
+            click={() => navigation.navigate('ChatSingle')}
+          />
+        );
     });
   };
 

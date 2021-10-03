@@ -6,6 +6,7 @@ import SpashScreen from '../scenes/splash';
 import WelcomeScreen from '../scenes/welcome';
 import RegisterScreen from '../scenes/register';
 import CreateChatScreen from '../scenes/create-chat';
+import ChatSingleScreen from '../scenes/chat-single';
 
 import {Colors} from '../styles';
 
@@ -27,7 +28,7 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="TabNavigator"
+        initialRouteName="ChatSingle"
         lazy={false}
         screenOptions={{
           headerShown: false,
@@ -41,6 +42,14 @@ const RootNavigation = () => {
           component={CreateChatScreen}
           options={{
             title: 'Yeni Sohbet',
+            ...headerOption,
+          }}
+        />
+        <Stack.Screen
+          name="ChatSingle"
+          component={ChatSingleScreen}
+          options={{
+            title: 'Kullanıcı',
             ...headerOption,
           }}
         />
