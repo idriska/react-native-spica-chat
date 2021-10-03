@@ -20,11 +20,11 @@ const CreateChatItem = ({click, data}) => {
       <TouchableOpacity
         style={styles.avatarContainer}
         onPress={() => setClick('avatar')}>
-        {data.image ? (
+        {data.avatar ? (
           <Image
             style={styles.avatar}
             source={{
-              uri: 'https://cdn.geekwire.com/wp-content/uploads/2019/01/mackenziebezos.jpg',
+              uri: data.avatar,
             }}
           />
         ) : (

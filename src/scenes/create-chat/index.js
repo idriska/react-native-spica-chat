@@ -6,23 +6,63 @@ import styles from './styles';
 import Contacts from 'react-native-contacts';
 import {useState} from 'react/cjs/react.development';
 import {Colors} from '../../styles';
+import {DataService} from '../../services/data.service';
 
 const CreateChatScreen = () => {
-  let allContacts = [];
+  const dataService = new DataService();
   const [contacts, setContacts] = useState([]);
+  let allContacts = [];
+  let allMsisdns = [];
 
-  useEffect(() => {
-    Contacts.getAll().then(contacts => {
-      console.log(contacts)
-      contacts.forEach(contact => {
-        allContacts.push({
-          name: contact.displayName,
-          msisdn: contact.phoneNumbers[0],
-        });
+  useEffect(async () => {
+    const contactsData = await Contacts.getAll();
+    if (contactsData.length) {
+      contactsData.forEach(contact => {
+        let msisdn = contact.phoneNumbers[0]?.number;
+        if (msisdn && msisdn.length > 9) {
+          allContacts.push({
+            name: contact.displayName,
+            msisdn: formatMsisdn(msisdn),
+          });
+          allMsisdns.push(formatMsisdn(msisdn));
+        }
       });
-      setContacts(allContacts);
-    });
+      const usersData = await getUsers();
+      const mergedData = mergeUsersData(usersData)
+      
+      setContacts(mergedData);
+    }
   }, []);
+
+  const getUsers = async () => {
+    try {
+      const data = await dataService.resources.user.getAll({
+        // queryParams: {
+        //   filter: {
+        //     msisdn: {$in: allMsisdns},
+        //   },
+        // },
+      });
+      return data;
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  };
+
+  const formatMsisdn = msisdn => {
+    msisdn = msisdn.replace(/[^0-9]/g, '');
+    return msisdn.substr(msisdn.length - 10, 10);
+  };
+
+  const mergeUsersData = (usersData) => {
+    usersData.forEach(user => {
+      let contact = allContacts.find(contact => {
+        return contact.msisdn == user.msisdn;
+      });
+      user.name = contact.name;
+    });
+    return usersData
+  }
 
   const renderUserList = () => {
     return contacts.map((item, index) => {
