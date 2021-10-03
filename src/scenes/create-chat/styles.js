@@ -3,9 +3,7 @@ import {Colors} from '../../styles';
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  container: {
-   
-  },
+  container: {},
   divider: {
     width: viewportWidth,
     height: 7,
@@ -18,6 +16,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 16,
     fontWeight: '500',
+  },
+  spinner: {
+    marginTop: viewportHeight / 2 - 200,
   },
 });
 

@@ -7,12 +7,12 @@ const CreateChatItem = ({click, data}) => {
   const setClick = value => {
     click(value);
   };
-
   initials = data.name.split(' ');
   if (initials.length > 1) {
     initials = `${initials[0][0]}${initials[1][0]}`;
   } else {
-    initials = `${initials[0][0]}${initials[0][1]}`;
+    if (initials[0].length > 1) initials = `${initials[0][0]}${initials[0][1]}`;
+    else initials = `${initials[0][0]}`;
   }
 
   return (

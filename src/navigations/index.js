@@ -27,7 +27,7 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Welcome"
+        initialRouteName="TabNavigator"
         lazy={false}
         screenOptions={{
           headerShown: false,

@@ -35,10 +35,10 @@ const RegisterScreen = () => {
       //   title: 'TEST 2',
       //   description: 'DESC 2',
       // });
-      const data = await dataService.resources.user.getAll()
+      // const data = await dataService.resources.user.getAll()
       console.log("DATA", data)
     } catch (error) {
-      console.log("MY ERROR", error)
+      console.log("ERROR", error)
     }
   };
 
