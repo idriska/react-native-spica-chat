@@ -22,7 +22,7 @@ const WelcomeScreen = () => {
       <PrimaryButton
         text="Devam"
         callback={() => {
-          navigation.navigate('Home');
+          navigation.navigate('Regsiter');
         }}
       />
       <Text style={styles.termsText}>

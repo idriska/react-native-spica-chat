@@ -15,7 +15,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import OTPTextInput from 'react-native-otp-textinput';
 import {Colors} from '../../styles';
 
+import {DataService} from '../../services/data.service';
+
 const RegisterScreen = () => {
+  const dataService = new DataService();
   const navigation = useNavigation();
   const [step, setStep] = useState(1);
   const [otp, setOTP] = useState(false);
@@ -24,6 +27,20 @@ const RegisterScreen = () => {
     'Numaranızın doğrulanması için SMS ile tek kullanımlık ONAY KODU gönderilecektir.',
   );
   const [btnText, setBtnText] = useState('Onay Kodu Al');
+
+  const test = async () => {
+    console.log('TEST');
+    try {
+      // dataService.resources.user.post({
+      //   title: 'TEST 2',
+      //   description: 'DESC 2',
+      // });
+      const data = await dataService.resources.user.getAll()
+      console.log("DATA", data)
+    } catch (error) {
+      console.log("MY ERROR", error)
+    }
+  };
 
   const nextStep = currentStep => {
     currentStep = currentStep + 1;
@@ -40,7 +57,7 @@ const RegisterScreen = () => {
       setInformText('');
       setBtnText('Tamamla');
     } else if (currentStep == 4) {
-      navigation.navigate('TabNavigator')
+      navigation.navigate('TabNavigator');
     }
   };
   return (
@@ -125,7 +142,8 @@ const RegisterScreen = () => {
         <PrimaryButton
           text={btnText}
           callback={() => {
-            nextStep(step);
+            test();
+            // nextStep(step);
           }}
         />
         <Text style={styles.supportText}>
