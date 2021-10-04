@@ -28,20 +28,6 @@ const RegisterScreen = () => {
   );
   const [btnText, setBtnText] = useState('Onay Kodu Al');
 
-  const test = async () => {
-    console.log('TEST');
-    try {
-      // dataService.resources.user.post({
-      //   title: 'TEST 2',
-      //   description: 'DESC 2',
-      // });
-      // const data = await dataService.resources.user.getAll()
-      console.log("DATA", data)
-    } catch (error) {
-      console.log("ERROR", error)
-    }
-  };
-
   const nextStep = currentStep => {
     currentStep = currentStep + 1;
     setStep(currentStep);
@@ -49,7 +35,7 @@ const RegisterScreen = () => {
     if (currentStep == 2) {
       setTitle('Onay Kodu');
       setInformText(
-        "+90 5530129507 umaralı telefona gönderilen 5 haneli ONAY KOD'u girin.",
+        "+90 5530129507 numaralı telefona gönderilen 5 haneli ONAY KOD'u girin.",
       );
       setBtnText('Onayla');
     } else if (currentStep == 3) {
@@ -142,8 +128,7 @@ const RegisterScreen = () => {
         <PrimaryButton
           text={btnText}
           callback={() => {
-            test();
-            // nextStep(step);
+            nextStep(step);
           }}
         />
         <Text style={styles.supportText}>

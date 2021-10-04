@@ -12,6 +12,7 @@ export class DataService {
 
   resources = {
     user: this.spicaClient.createResource(this.bucket.user),
+    chat: this.spicaClient.createResource(this.bucket.chat),
   };
 
   constructor(httpClient) {}

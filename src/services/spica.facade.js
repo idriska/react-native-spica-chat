@@ -39,8 +39,9 @@ export class SpicaResource {
     let spica_token = await AsyncStorage.getItem('spica_token');
     if (spica_token) {
       initializeConfig = {
-        publicUrl: this.spicaClient.apiUrl,
-        identity: spica_token,
+        publicUrl: 'https://test-4061d.hq.spicaengine.com/api',
+        identity:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImlkZW50aWZpZXIiOiI1NTMwMTI5NTA3IiwicG9saWNpZXMiOlsiNjE1YjczMjI2MzdjYzYwMDJkN2ExOTFlIl19.eyJfaWQiOiI2MTU5ODhmYzQzZDVkYzAwMmRiODY1ZWUiLCJpZGVudGlmaWVyIjoiNTUzMDEyOTUwNyIsInBvbGljaWVzIjpbIjYxNWI3MzIyNjM3Y2M2MDAyZDdhMTkxZSJdLCJhdHRyaWJ1dGVzIjp7InJvbGUiOiJ1c2VyIn0sImlhdCI6MTYzMzM4MzI1NCwiZXhwIjoxNjMzNTU2MDU0LCJhdWQiOiJzcGljYS5pbyIsImlzcyI6Imh0dHBzOi8vdGVzdC00MDYxZC5ocS5zcGljYWVuZ2luZS5jb20vYXBpIn0.953sIGTrpQCkBSQGvJl-sc71Bc6cVgsLSFXmZcfKGBo', //spica_token,
       };
     } else {
       initializeConfig = {

@@ -28,7 +28,7 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ChatSingle"
+        initialRouteName="CreateChat"
         lazy={false}
         screenOptions={{
           headerShown: false,

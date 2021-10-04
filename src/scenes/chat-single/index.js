@@ -5,10 +5,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import {Colors} from '../../styles';
+import {DataService} from '../../services/data.service';
 
-const ChatSingleScreen = () => {
+const ChatSingleScreen = ({route}) => {
+  const dataService = new DataService();
+  const {chat, opponent, chatId} = route.params;
   const [height, setHeight] = useState(35);
   const [message, setMessage] = useState('');
+
+  // getChat = async () => {
+  //   dataService.resources.chat.getAll({queryParams: {
+  //     filter: {
+  //       user
+  //     }
+  //   }})
+  // }
 
   return (
     <View style={styles.container}>
