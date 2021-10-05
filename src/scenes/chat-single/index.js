@@ -7,19 +7,24 @@ import styles from './styles';
 import {Colors} from '../../styles';
 import {MessageItem} from '../../components';
 import {DataService} from '../../services/data.service';
+import {UserService} from '../../services/user.service';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const ChatSingleScreen = ({route}) => {
   const dataService = new DataService();
+  const userService = new UserService();
   const {chat, opponent} = route.params;
   const [height, setHeight] = useState(35);
   const [message, setMessage] = useState('');
   const [chatGroup, setChatGroup] = useState({});
   const [usersInChatGroup, setUsersInChatGroup] = useState({});
   const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState();
 
   useEffect(async () => {
     if (chat) {
+      let user = await userService.getActiveUser();
+      setUser(user);
       setChatGroup(chat);
       // setUserInChat();
       getAllMessages();
@@ -43,13 +48,20 @@ const ChatSingleScreen = ({route}) => {
         sort: {_id: -1},
       })
       .subscribe(data => {
+        data.reverse()
         setMessages(data);
       });
   };
 
   const renderMessages = () => {
-    return messages.map((item, index) => {
-      return <MessageItem key={index} data={item} />;
+    return messages.map((message, index) => {
+      return (
+        <MessageItem
+          key={index}
+          data={message}
+          isCurrentUser={message.owner == user._id}
+        />
+      );
     });
   };
 

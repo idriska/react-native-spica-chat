@@ -9,9 +9,10 @@ export class UserService {
   getActiveUser = async () => {
     let identity_id = await this.authService.getIdentityId();
     try {
-      return this.dataService.resources.user.getAll({
+      const user = await this.dataService.resources.user.getAll({
         queryParams: {filter: {identity: identity_id}},
       });
+      return user[0];
     } catch (error) {
       console.log('Error', error);
     }
