@@ -11,6 +11,7 @@ import {UserService} from '../../services/user.service';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const ChatSingleScreen = ({route}) => {
+  const [$messages, set$messages] = useState();
   const dataService = new DataService();
   const userService = new UserService();
   const {chat, opponent} = route.params;
@@ -40,17 +41,28 @@ const ChatSingleScreen = ({route}) => {
   // };
 
   getAllMessages = () => {
-    dataService.resources.message
-      .getAllRealtime({
-        filter: {chat: '615b5beb637cc6002d7a1872'},
-        limit: 10,
-        skip: 0,
-        sort: {_id: -1},
-      })
-      .subscribe(data => {
-        data.reverse()
-        setMessages(data);
+    let $messages = dataService.resources.message.getAllRealtime({
+      filter: {chat: '615b5beb637cc6002d7a1872'},
+      limit: 10,
+      skip: 0,
+      sort: {_id: -1},
+    });
+    $messages.subscribe(data => {
+      data.reverse();
+      setMessages(data);
+    });
+    set$messages($messages);
+  };
+
+  sendMessage = () => {
+    if (message.length > 0) {
+      $messages.insert({
+        message: message,
+        owner: user._id,
+        chat: chat._id,
       });
+    } else {
+    }
   };
 
   const renderMessages = () => {
@@ -91,20 +103,34 @@ const ChatSingleScreen = ({route}) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={{marginLeft: 10}}>
-          <MaterialCommunityIcons
-            name="camera-outline"
-            color={Colors.PRIMARY}
-            size={26}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={{marginHorizontal: 10}}>
-          <MaterialCommunityIcons
-            name="microphone-outline"
-            color={Colors.PRIMARY}
-            size={26}
-          />
-        </TouchableOpacity>
+        {message.length > 0 ? (
+          <TouchableOpacity
+            style={{marginHorizontal: 10}}
+            onPress={() => sendMessage()}>
+            <MaterialCommunityIcons
+              name="send-circle"
+              color={Colors.PRIMARY}
+              size={46}
+            />
+          </TouchableOpacity>
+        ) : (
+          <>
+            <TouchableOpacity style={{marginLeft: 10}}>
+              <MaterialCommunityIcons
+                name="camera-outline"
+                color={Colors.PRIMARY}
+                size={26}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginHorizontal: 10}}>
+              <MaterialCommunityIcons
+                name="microphone-outline"
+                color={Colors.PRIMARY}
+                size={26}
+              />
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </View>
   );
