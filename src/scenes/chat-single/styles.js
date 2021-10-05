@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  chatArea: {
+    flex: 1,
+  },
   bottomContainer: {
     width: viewportWidth,
     maxHeight: 100,

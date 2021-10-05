@@ -4,5 +4,6 @@ export const environment = {
   BUCKETS: {
     user: '6159872343d5dc002db865d8',
     chat: '61572e2543d5dc002db86559',
+    message: '61572e8743d5dc002db86564'
   },
 };

@@ -4,6 +4,7 @@ import FabIcon from './FabIcon';
 import ChatCard from './ChatCard';
 import CreateChatItem from './CreateChatItem';
 import UserListItem from './UserListItem';
+import MessageItem from './MessageItem';
 
 export {
   PrimaryButton,
@@ -12,4 +13,5 @@ export {
   ChatCard,
   CreateChatItem,
   UserListItem,
+  MessageItem
 };

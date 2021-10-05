@@ -1,28 +1,61 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, TouchableOpacity, TextInput} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import {Colors} from '../../styles';
+import {MessageItem} from '../../components';
 import {DataService} from '../../services/data.service';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const ChatSingleScreen = ({route}) => {
   const dataService = new DataService();
-  const {chat, opponent, chatId} = route.params;
+  const {chat, opponent} = route.params;
   const [height, setHeight] = useState(35);
   const [message, setMessage] = useState('');
+  const [chatGroup, setChatGroup] = useState({});
+  const [usersInChatGroup, setUsersInChatGroup] = useState({});
+  const [messages, setMessages] = useState([]);
 
-  // getChat = async () => {
-  //   dataService.resources.chat.getAll({queryParams: {
-  //     filter: {
-  //       user
-  //     }
-  //   }})
-  // }
+  useEffect(async () => {
+    if (chat) {
+      setChatGroup(chat);
+      // setUserInChat();
+      getAllMessages();
+    } else {
+      chatGroup['name'] = opponent.name;
+    }
+  }, []);
+
+  // setUserInChat = () => {
+  //   chatGroup.last_active.forEach(item => {
+  //     setUsersInChatGroup({usersInChatGroup, ...item});
+  //   });
+  // };
+
+  getAllMessages = () => {
+    dataService.resources.message
+      .getAllRealtime({
+        filter: {chat: '615b5beb637cc6002d7a1872'},
+        limit: 10,
+        skip: 0,
+        sort: {_id: -1},
+      })
+      .subscribe(data => {
+        setMessages(data);
+      });
+  };
+
+  const renderMessages = () => {
+    return messages.map((item, index) => {
+      return <MessageItem key={index} data={item} />;
+    });
+  };
 
   return (
     <View style={styles.container}>
+      <ScrollView style={styles.chatArea}>{renderMessages()}</ScrollView>
       <View style={styles.bottomContainer}>
         <TouchableOpacity style={{marginHorizontal: 10}}>
           <FontAwesome name="smile-o" color={Colors.PRIMARY} size={26} />
