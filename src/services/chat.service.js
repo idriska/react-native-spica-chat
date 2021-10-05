@@ -15,17 +15,21 @@ export class ChatService {
   }
 
   getChatByUserWithMe = id => {
-    return this.dataService.resources.chat.getAll({
-      queryParams: {
-        filter: {
-          $and: [
-            {last_active: {$elemMatch: {user: id}}},
-            {last_active: {$elemMatch: {user: this.me._id}}},
-            {last_active: {$size: 2}},
-            {is_group: false},
-          ],
+    this.dataService.resources.chat
+      .getAll({
+        queryParams: {
+          filter: {
+            $and: [
+              {last_active: {$elemMatch: {user: id}}},
+              {last_active: {$elemMatch: {user: this.me._id}}},
+              {last_active: {$size: 2}},
+              {is_group: false},
+            ],
+          },
         },
-      },
-    });
+      })
+      .then(res => {
+        console.log(res);
+      });
   };
 }

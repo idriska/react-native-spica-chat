@@ -42,7 +42,7 @@ const ChatSingleScreen = ({route}) => {
 
   getAllMessages = () => {
     let $messages = dataService.resources.message.getAllRealtime({
-      filter: {chat: '615b5beb637cc6002d7a1872'},
+      filter: {chat: chatGroup._id},
       limit: 10,
       skip: 0,
       sort: {_id: -1},

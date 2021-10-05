@@ -8,13 +8,16 @@ import {useState} from 'react/cjs/react.development';
 import {Colors} from '../../styles';
 import {DataService} from '../../services/data.service';
 import {ChatService} from '../../services/chat.service';
+import {UserService} from '../../services/user.service';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const CreateChatScreen = () => {
   const dataService = new DataService();
   const chatService = new ChatService();
+  const userService = new UserService();
   const [contacts, setContacts] = useState([]);
+  const [user, setUser] = useState();
   const navigation = useNavigation();
   let allContacts = [];
   let allMsisdns = [];
@@ -22,6 +25,8 @@ const CreateChatScreen = () => {
   useEffect(async () => {
     // await AsyncStorage.setItem('spica_token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImlkZW50aWZpZXIiOiI1NTMwMTI5NTA3IiwicG9saWNpZXMiOlsiNjE1YjczMjI2MzdjYzYwMDJkN2ExOTFlIl19.eyJfaWQiOiI2MTU5ODhmYzQzZDVkYzAwMmRiODY1ZWUiLCJpZGVudGlmaWVyIjoiNTUzMDEyOTUwNyIsInBvbGljaWVzIjpbIjYxNWI3MzIyNjM3Y2M2MDAyZDdhMTkxZSJdLCJhdHRyaWJ1dGVzIjp7InJvbGUiOiJ1c2VyIn0sImlhdCI6MTYzMzM4MzI1NCwiZXhwIjoxNjMzNTU2MDU0LCJhdWQiOiJzcGljYS5pbyIsImlzcyI6Imh0dHBzOi8vdGVzdC00MDYxZC5ocS5zcGljYWVuZ2luZS5jb20vYXBpIn0.953sIGTrpQCkBSQGvJl-sc71Bc6cVgsLSFXmZcfKGBo")
     // console.log(await AsyncStorage.getItem('spica_token'));
+    let user = await userService.getActiveUser();
+    setUser(user);
     const contactsData = await Contacts.getAll();
     if (contactsData.length) {
       contactsData.forEach(contact => {
@@ -44,11 +49,11 @@ const CreateChatScreen = () => {
   const getUsers = async () => {
     try {
       const data = await dataService.resources.user.getAll({
-        // queryParams: {
-        //   filter: {
-        //     msisdn: {$in: allMsisdns},
-        //   },
-        // },
+        queryParams: {
+          filter: {
+            $and: [{msisdn: {$ne: user.msisdn}}],
+          },
+        },
       });
       return data;
     } catch (error) {
