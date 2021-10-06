@@ -1,4 +1,4 @@
-### React Native Realtime Chat App With Spica
+### React Native Realtime Chat App (BiP Clone) With Spica
 
 <div style="text-align:center">
     <table>
