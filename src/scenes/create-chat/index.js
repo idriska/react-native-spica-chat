@@ -23,12 +23,10 @@ const CreateChatScreen = () => {
   let allMsisdns = [];
 
   useEffect(async () => {
-    // await AsyncStorage.setItem('spica_token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImlkZW50aWZpZXIiOiI1NTMwMTI5NTA3IiwicG9saWNpZXMiOlsiNjE1YjczMjI2MzdjYzYwMDJkN2ExOTFlIl19.eyJfaWQiOiI2MTU5ODhmYzQzZDVkYzAwMmRiODY1ZWUiLCJpZGVudGlmaWVyIjoiNTUzMDEyOTUwNyIsInBvbGljaWVzIjpbIjYxNWI3MzIyNjM3Y2M2MDAyZDdhMTkxZSJdLCJhdHRyaWJ1dGVzIjp7InJvbGUiOiJ1c2VyIn0sImlhdCI6MTYzMzM4MzI1NCwiZXhwIjoxNjMzNTU2MDU0LCJhdWQiOiJzcGljYS5pbyIsImlzcyI6Imh0dHBzOi8vdGVzdC00MDYxZC5ocS5zcGljYWVuZ2luZS5jb20vYXBpIn0.953sIGTrpQCkBSQGvJl-sc71Bc6cVgsLSFXmZcfKGBo")
-    // console.log(await AsyncStorage.getItem('spica_token'));
     let user = await userService.getActiveUser();
     setUser(user);
     const contactsData = await Contacts.getAll();
-    if (contactsData.length) {
+    if (user && contactsData.length) {
       contactsData.forEach(contact => {
         let msisdn = contact.phoneNumbers[0]?.number;
         if (msisdn && msisdn.length > 9) {
@@ -47,18 +45,13 @@ const CreateChatScreen = () => {
   }, []);
 
   const getUsers = async () => {
-    try {
-      const data = await dataService.resources.user.getAll({
-        queryParams: {
-          filter: {
-            $and: [{msisdn: {$ne: user.msisdn}}],
-          },
+    return dataService.resources.user.getAll({
+      queryParams: {
+        filter: {
+          $and: [{msisdn: {$ne: user.msisdn}}],
         },
-      });
-      return data;
-    } catch (error) {
-      console.log('ERROR', error);
-    }
+      },
+    });
   };
 
   const formatMsisdn = msisdn => {
